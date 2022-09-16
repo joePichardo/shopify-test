@@ -1,5 +1,79 @@
 {% layout "template.liquid" %}
 
 {% block content %}
-    <h1>{{ product.title | capitalize }}</h1>
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="d-lg-none">
+                        <h1>{{ product.title }}</h1>
+                        <h4 id="price-field" class="mb-4"><span id="product-price">{{ product.price | divided_by: 100 | money_native:"USD" }}</span> <small><del>{{ product.compare_at_price | divided_by: 100 | money_native:"USD" }}</del></small></h4>
+                    </div>
+                    <div class="product-image-wrapper row d-none d-lg-flex">
+                        {% for image in product.media %}
+                            <div class="col-6 product-image-wall__item">
+                                <img class="w-100 img-fluid mb-4" src="{{ image.src }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- start product slider -->
+                    <div class="d-lg-none">
+                        <div id="product-image-slider">
+                            {% for image in product.media %}
+                                <div>
+                                    <img class="w-100 img-fluid" src="{{ image.src }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div id="product-image-slider-nav" class="mb-3 pb-3">
+                            {% for image in product.media %}
+                                <div class="product-image-wall__item">
+                                    <img class="w-100 img-fluid" src="{{ image.src }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- end product slider -->
+                </div>
+                <div class="col-12 col-lg-4">
+                    <!-- start product header -->
+                    <div class="d-none d-lg-block">
+                        <h1>{{ product.title }}</h1>
+                        <h4 id="price-field" class="mb-4"><span id="product-price">{{ product.price | divided_by: 100 | money_native:"USD" }}</span> <small><del>{{ product.compare_at_price | divided_by: 100 | money_native:"USD" }}</del></small></h4>
+                    </div>
+                    <!-- end product header -->
+                    {% if product.available %}
+                        <form onsubmit="submitForm(event)" class="mb-5">
+                            <!-- start product selection -->
+                            <h5 class="mb-3">Select Size</h5>
+                            <div class="row mb-4">
+                                {% for variant in product.variants %}
+                                    <div class="col-3 col-sm-2 col-lg-3 col-xxl-2 variant-option">
+                                        <input class="visually-hidden" type="radio" id="{{ variant.id }}" data-size="{{ variant.option1 }}"  value="{{ variant.id }}" data-price="{{ variant.price }}" name="idAndSize" {% if forloop.first %}checked{% endif %}>
+                                        <label class="product-option--size w-100 d-flex justify-content-center align-items-center text-align-center mb-3 {% if variant.available == false %}sold-out{% endif %}" for="{{ variant.id }}">{{ variant.title }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- end product selection -->
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                    <button id="add-to-cart-button" class="btn btn-dark w-100" type="submit">Add to cart</button>
+                                </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        <!-- start product sold out -->
+                        <h3 class="text-info">This product is currently sold out.</h3>
+                        <!-- end product sold out -->
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-12">
+                            {{ product.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

@@ -1,0 +1,54 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.product-image-wall__item img {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.visually-hidden {
+    position: absolute!important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px,1px,1px,1px);
+    white-space: nowrap;
+    outline: none;
+}
+
+.product-option--size {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    height: 46px;
+    border-radius: 5px;
+}
+
+.variant-option label {
+    cursor: pointer;
+}
+
+.variant-option input[type="radio"]:checked + label.product-option--size {
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.variant-option input[type="radio"] + label.product-option--size.sold-out {
+    opacity: 0.3;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#price-field del {
+    opacity: 0.8;
+    color: grey;
+}
+/* the slides */
+.slick-slide {
+    margin: 0 10px;
+}
+/* the parent */
+.slick-list {
+    margin: 0 -10px;
+}
+
+.slick-next:before, .slick-prev:before {
+    color: black;
+}

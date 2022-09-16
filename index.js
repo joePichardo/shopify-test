@@ -2,10 +2,13 @@ const Hapi = require('@hapi/hapi');
 const Path = require('path');
 const fs = require('fs');
 const { Liquid } = require('liquidjs');
+const { moneyFiltersPlugin } = require('liquidjs-ov-money-filters');
+
 const engine = new Liquid({
     root: ['templates/'],
     extname: '.liquid'
 });
+engine.plugin(moneyFiltersPlugin);
 
 const init = async () => {
     const server = Hapi.server({
